@@ -1,5 +1,6 @@
 package com.example.pmtoolserver.services;
 
+import com.example.pmtoolserver.exceptions.ProjectIdException;
 import com.example.pmtoolserver.models.Project;
 import com.example.pmtoolserver.repositories.ProjectRepository;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,11 @@ public class ProjectService {
 
 
     public Project saveOrUpdateProject(Project project) {
-        return projectRepository.save(project);
+        try {
+            return projectRepository.save(project);
+        } catch (Exception e) {
+            throw new ProjectIdException("Project Id '" + project.getProjectIdentifier() + "' already exists");
+        }
     }
 
 }
