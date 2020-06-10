@@ -12,13 +12,20 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
 
-
     public Project saveOrUpdateProject(Project project) {
         try {
             return projectRepository.save(project);
         } catch (Exception e) {
             throw new ProjectIdException("Project Id '" + project.getProjectIdentifier() + "' already exists");
         }
+    }
+
+    public Project findByProjectIdentifier(String projectId) {
+        Project project = projectRepository.findByProjectIdentifier(projectId);
+        if(project == null) {
+            throw new ProjectIdException("Project Id '" + projectId + "' does not exist");
+        }
+        return project;
     }
 
 }

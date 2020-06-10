@@ -7,6 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ProjectRepository extends MongoRepository<Project, ObjectId> {
 
-    @Override
-    Iterable<Project> findAllById(Iterable<ObjectId> iterable);
+    Project findByProjectIdentifier(String projectId);
 }
