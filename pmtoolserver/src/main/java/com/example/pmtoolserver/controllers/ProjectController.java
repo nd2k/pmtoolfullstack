@@ -1,6 +1,7 @@
 package com.example.pmtoolserver.controllers;
 
 import com.example.pmtoolserver.models.Project;
+import com.example.pmtoolserver.services.MapValidationErrorService;
 import com.example.pmtoolserver.services.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,16 +23,12 @@ import java.util.Map;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final MapValidationErrorService mapValidationErrorService;
 
     @PostMapping("/create")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            Map<String, String> errorMapping = new HashMap<>();
-            for(FieldError error: bindingResult.getFieldErrors()) {
-                errorMapping.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseEntity<>(errorMapping, HttpStatus.BAD_REQUEST);
-        }
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
+        if(errorMap != null) return errorMap;
         Project createdProject = projectService.saveOrUpdateProject(project);
         return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
     }
