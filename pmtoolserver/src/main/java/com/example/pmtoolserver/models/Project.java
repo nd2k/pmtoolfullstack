@@ -3,7 +3,7 @@ package com.example.pmtoolserver.models;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,15 +29,15 @@ public class Project {
     private String projectIdentifier;
     @NotBlank(message = "Project description is required")
     private String description;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private String startDate;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime endDate;
     @CreatedDate
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private DateTime createAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime createAt;
     @LastModifiedDate
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private DateTime modifiedAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime modifiedAt;
 
 }
