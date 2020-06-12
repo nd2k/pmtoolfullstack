@@ -18,7 +18,7 @@ import java.util.List;
 public class Backlog {
 
     private Integer projectTaskSequence = 0;
-    private List<ProjectTask> projectTasks = new ArrayList<>();
+    private List<ProjectTask> projectTasks;
 
     @CreatedDate
     private LocalDateTime createAt;

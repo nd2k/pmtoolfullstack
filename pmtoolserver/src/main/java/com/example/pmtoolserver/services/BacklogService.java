@@ -30,7 +30,7 @@ public class BacklogService {
         if(projectTask.getStatus() == null) {
             projectTask.setStatus("TO_DO");
         }
-        List<ProjectTask> projectTasks = new ArrayList<>();
+        List<ProjectTask> projectTasks = backlog.getProjectTasks();
         projectTasks.add(projectTask);
         backlog.setProjectTasks(projectTasks);
         return projectRepository.save(project);
