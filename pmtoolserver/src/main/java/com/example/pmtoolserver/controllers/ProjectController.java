@@ -7,12 +7,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
 @AllArgsConstructor
@@ -33,11 +31,17 @@ public class ProjectController {
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
         Project project = projectService.findByProjectIdentifier(projectId);
-        return new ResponseEntity<Project>(project, HttpStatus.OK);
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @GetMapping("")
     public Iterable<Project> getAllProjects() {
         return projectService.findAllProject();
+    }
+
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<?> deleteProjectById(@PathVariable String projectId) {
+        projectService.deleteProjectByIdentifier(projectId);
+        return new ResponseEntity<>("Project with Id '" + projectId + "' was deleted", HttpStatus.OK);
     }
 }

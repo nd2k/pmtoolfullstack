@@ -1,8 +1,10 @@
 package com.example.pmtoolserver.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -17,6 +19,7 @@ import javax.validation.constraints.Size;
 @Document(collection = "projects")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Project {
 
     @Id
@@ -33,11 +36,12 @@ public class Project {
     private LocalDateTime startDate;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime endDate;
+
+    private Backlog backlog;
+
     @CreatedDate
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime createAt;
+    private DateTime createAt;
     @LastModifiedDate
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime modifiedAt;
+    private DateTime modifiedAt;
 
 }
