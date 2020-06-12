@@ -23,8 +23,6 @@ public class ProjectTask {
     private Integer priority;
     private Date dueDate;
 
-    private String projectIdentifier;
-
     @CreatedDate
     private LocalDateTime createAt;
     @LastModifiedDate
