@@ -3,7 +3,6 @@ package com.example.pmtoolserver.services;
 import com.example.pmtoolserver.models.Backlog;
 import com.example.pmtoolserver.models.Project;
 import com.example.pmtoolserver.models.ProjectTask;
-import com.example.pmtoolserver.repositories.CustomMongoOperations;
 import com.example.pmtoolserver.repositories.ProjectRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.util.List;
 public class BacklogService {
 
     private final ProjectRepository projectRepository;
-    private final CustomMongoOperations customMongoOperations;
 
     public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask) {
         Project project = projectRepository.findByProjectIdentifier(projectIdentifier);
@@ -47,10 +45,12 @@ public class BacklogService {
     }
 
     public Backlog findBacklogById(String backlogId) {
-        return customMongoOperations.findByBacklogId(backlogId);
+        Project project = projectRepository.findByBacklog_BacklogIdentifier(backlogId);
+        return project.getBacklog();
     }
 
     public List<ProjectTask> findProjectTasksList(String projectId) {
-        return customMongoOperations.findProjectTasksListById(projectId);
+        Project project = projectRepository.findByBacklog_ProjectTasksList_ProjectTaskIdentifier(projectId);
+        return project.getBacklog().getProjectTasksList();
     }
 }

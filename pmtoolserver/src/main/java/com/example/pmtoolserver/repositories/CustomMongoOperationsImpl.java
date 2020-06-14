@@ -25,7 +25,7 @@ public class CustomMongoOperationsImpl implements CustomMongoOperations {
 
     @Override
     public List<ProjectTask> findProjectTasksListById(String projectId) {
-        Project project = mongoTemplate.findOne(new Query(Criteria.where("projectIdentifier").is(projectId)), Project.class);
+        Project project = mongoTemplate.findOne(new Query(Criteria.where("backlog.projectTasksList.projectTaskIdentifier").is(projectId)), Project.class);
         return project.getBacklog().getProjectTasksList();
     }
 }
