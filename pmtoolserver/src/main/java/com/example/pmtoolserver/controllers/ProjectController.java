@@ -31,14 +31,6 @@ public class ProjectController {
         return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{projectId}")
-    public ResponseEntity<?> createNewProjectTask(@Valid @RequestBody ProjectTask projectTask, BindingResult bindingResult, @PathVariable String projectId) {
-        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
-        if(errorMap != null) return errorMap;
-        Project project = backlogService.addProjectTask(projectId, projectTask);
-        return new ResponseEntity<>(project, HttpStatus.CREATED);
-    }
-
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
         Project project = projectService.findByProjectIdentifier(projectId);

@@ -4,17 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Document(collection = "projects")
 @Data
@@ -32,16 +28,16 @@ public class Project {
     private String projectIdentifier;
     @NotBlank(message = "Project description is required")
     private String description;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime startDate;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime endDate;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+//    private LocalDateTime startDate;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+//    private LocalDateTime endDate;
 
     private Backlog backlog;
 
-    @CreatedDate
-    private DateTime createAt;
-    @LastModifiedDate
-    private DateTime modifiedAt;
+//    @CreatedDate
+//    private DateTime createAt;
+//    @LastModifiedDate
+//    private DateTime modifiedAt;
 
 }
