@@ -19,4 +19,6 @@ public interface ProjectRepository extends MongoRepository<Project, ObjectId> {
 
     Project findByBacklog_ProjectTasksList_ProjectTaskIdentifier(String backlogId);
 
+    Project findByBacklog_ProjectTasksList_ProjectSequence(String projectSequence);
+
 }

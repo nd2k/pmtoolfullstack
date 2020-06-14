@@ -4,6 +4,7 @@ import com.example.pmtoolserver.models.Backlog;
 import com.example.pmtoolserver.models.ProjectTask;
 import com.example.pmtoolserver.services.BacklogService;
 import com.example.pmtoolserver.services.MapValidationErrorService;
+import com.example.pmtoolserver.services.ProjectTaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class BacklogController {
 
     private final MapValidationErrorService mapValidationErrorService;
     private final BacklogService backlogService;
+    private final ProjectTaskService projectTaskService;
 
     @PostMapping("/{projectId}")
     public ResponseEntity<?> createNewProjectTask(@Valid @RequestBody ProjectTask projectTask, BindingResult bindingResult, @PathVariable String projectId) {
@@ -37,5 +39,11 @@ public class BacklogController {
     @GetMapping("list/{projectId}")
     public List<ProjectTask> getProjectTasksList(@PathVariable String projectId) {
         return backlogService.findProjectTasksList(projectId);
+    }
+
+    @GetMapping("/{backlogId}/{projectSequence}")
+    public ResponseEntity<?> getProjectTask(@PathVariable String backlogId, @PathVariable String projectSequence) {
+        ProjectTask projectTask = projectTaskService.findProjectTaskByProjectSequence(backlogId, projectSequence);
+        return new ResponseEntity<>(projectTask, HttpStatus.OK);
     }
 }
